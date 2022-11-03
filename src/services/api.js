@@ -1,6 +1,8 @@
-//const baseUrl = 'https://devconde.site/api';
+// const baseUrl = 'http://127.0.0.1:8000/api';
+ //const baseUrl = 'http://localhost:5000';
 //const baseUrl = 'https://api.b7web.com.br/devcond/api/admin';
-const baseUrl = 'https://node-api-devcond.vercel.app';
+//const baseUrl = 'https://node-api-devcond.herokuapp.com';
+const baseUrl = 'http://167.114.30.88:3000';
 
 const request = async (method, endpoint, params, token = null) => {
     method = method.toLowerCase();
@@ -8,13 +10,13 @@ const request = async (method, endpoint, params, token = null) => {
     let body = null;
     switch(method) {
         case 'get':
-            let queryString = new URLSearchParams(params).toString();
-            fullUrl += `?${queryString}`;    
+            // let queryString = new URLSearchParams(params).toString();
+            // fullUrl += `?${queryString}`;
         break;
         case 'post':
         case 'put':
         case 'delete':
-            body = JSON.stringify(params);    
+            body = JSON.stringify(params);
         break;
     }
     let headers = {'Content-Type': 'application/json'};
@@ -29,22 +31,28 @@ const request = async (method, endpoint, params, token = null) => {
 export default () => {
     return {
         getToken: () => {
-            return localStorage.getItem('token');
+          return localStorage.getItem('token');
         },
         validateToken: async () => {
-            let token = localStorage.getItem('token');
-            let json = await request('post', '/auth/validate', {}, token);
-            return json;
+          let token = localStorage.getItem('token');
+          let json = await request('post', '/auth/validate', {}, token);
+          return json;
         },
         login: async (email, password) => {
-            let json = await request('post', '/auth/login', {email, password});
-        return json;
+          let json = await request('post', '/login', {email, password});
+          // let json = await request('post', '/auth/login', {cpf, password});
+          return json;
         },
         logout: async () => {
             let token = localStorage.getItem('token');
-            let json = await request('post', '/auth/logout', {}, token);
+            // let json = await request('post', '/auth/logout', {}, token);
             localStorage.removeItem('token');
-            return json;
+            // return json;
+        },
+        profile: async (id) => {
+          let token = localStorage.getItem('token');
+          let json = await request('get', `/profile/${id}`, {}, token);
+          return json;
         },
         getWall: async () => {
             let token = localStorage.getItem('token');
