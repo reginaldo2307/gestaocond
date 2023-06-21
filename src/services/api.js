@@ -1,8 +1,8 @@
 // const baseUrl = 'http://127.0.0.1:8000/api';
  //const baseUrl = 'http://localhost:5000';
-//const baseUrl = 'https://api.b7web.com.br/devcond/api/admin';
+const baseUrl = 'https://api.b7web.com.br/devcond/api/admin';
 //const baseUrl = 'https://node-api-devcond.herokuapp.com';
-const baseUrl = 'https://node-api-devcond.vercel.app';
+//const baseUrl = 'https://node-api-devcond.vercel.app';
 
 const request = async (method, endpoint, params, token = null) => {
     method = method.toLowerCase();
